@@ -3,19 +3,30 @@ package core
 import (
 	"errors"
 	"fmt"
+	"github.com/af-fess/go-demo-tests/factories"
 	"github.com/af-fess/go-demo-tests/utils"
-	"os"
 	"os/exec"
 	"time"
 )
 
 type Deploy struct {
 	Params BuildParams
+	SystemLibraryProvider factories.SystemLibraryProvider
+	os factories.SystemLibraryProvider
+	time factories.SystemLibraryProvider
 }
 
-func (s *Deploy) Run() error {
-	if s.Params.IsOptIn == true {
-		err := s.DoSomething()
+func (d *Deploy) buildPrettySystemApi() {
+	d.os = d.SystemLibraryProvider
+	d.time = d.SystemLibraryProvider
+}
+
+func (d *Deploy) Run() error {
+
+	d.buildPrettySystemApi()
+
+	if d.Params.IsOptIn == true {
+		err := d.DoSomething()
 		if err != nil {
 			return err
 		}
@@ -25,11 +36,11 @@ func (s *Deploy) Run() error {
 	return nil
 }
 
-func (s *Deploy) DoSomething() error {
+func (d *Deploy) DoSomething() error {
 
-	err := os.Chdir(s.Params.WorkspacePath)
+	err := d.os.Chdir(d.Params.WorkspacePath)
 	if err != nil {
-		fmt.Println("Cannot change a dir into", s.Params.WorkspacePath)
+		fmt.Println("Cannot change a dir into", d.Params.WorkspacePath)
 		return err
 	}
 
@@ -41,7 +52,7 @@ func (s *Deploy) DoSomething() error {
 	}
 	fmt.Println("pwd output: ", output)
 
-	time.Sleep(5 * time.Second)
+	d.time.Sleep(5 * time.Second)
 
 	c = exec.Command("ls")
 	output, err = utils.RunCommandWithOutput(c)

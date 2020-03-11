@@ -7,12 +7,8 @@ import (
 
 func main() {
 
-	params := core.BuildParams{
-		IsOptIn:       true,
-		WorkspacePath: "/Users/maximshoustin/AppsFlyer/projects",
-	}
-	deploy := core.Deploy{Params: params}
-	err := deploy.Run()
+	manage := core.Manage{}
+    err := manage.Execute()
 	if err != nil {
 		fmt.Println(err)
 	}
