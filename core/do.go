@@ -9,19 +9,23 @@ import (
 	"time"
 )
 
-type Deploy struct {
+type Doer interface {
+	DoSomething() error
+}
+
+type Do struct {
 	Params BuildParams
 	SystemLibraryProvider factories.SystemLibraryProvider
 	os factories.SystemLibraryProvider
 	time factories.SystemLibraryProvider
 }
 
-func (d *Deploy) buildPrettySystemApi() {
+func (d *Do) buildPrettySystemApi() {
 	d.os = d.SystemLibraryProvider
 	d.time = d.SystemLibraryProvider
 }
 
-func (d *Deploy) Run() error {
+func (d *Do) Run() error {
 
 	d.buildPrettySystemApi()
 
@@ -36,7 +40,7 @@ func (d *Deploy) Run() error {
 	return nil
 }
 
-func (d *Deploy) DoSomething() error {
+func (d *Do) DoSomething() error {
 
 	err := d.os.Chdir(d.Params.WorkspacePath)
 	if err != nil {

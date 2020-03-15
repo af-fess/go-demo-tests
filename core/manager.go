@@ -18,10 +18,10 @@ func (m *Manage) Execute() error{
 		IsOptIn:       true,
 		WorkspacePath: "/Users/maximshoustin/AppsFlyer/projects",
 	}
-	deploy := Deploy{
+	do := Do{
 		Params: params,
 		SystemLibraryProvider: m.SystemLibraryProvide,
 	}
-	return deploy.Run()
+	return do.Run()
 }
 
