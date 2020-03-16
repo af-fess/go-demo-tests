@@ -14,6 +14,7 @@ type Doer interface {
 }
 
 type Do struct {
+	Doer
 	Params BuildParams
 	SystemLibraryProvider factories.SystemLibraryProvider
 	os factories.SystemLibraryProvider
@@ -30,7 +31,7 @@ func (d *Do) Run() error {
 	d.buildPrettySystemApi()
 
 	if d.Params.IsOptIn == true {
-		err := d.DoSomething()
+		err := d.Doer.DoSomething()
 		if err != nil {
 			return err
 		}

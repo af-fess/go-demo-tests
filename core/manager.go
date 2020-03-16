@@ -22,6 +22,8 @@ func (m *Manage) Execute() error{
 		Params: params,
 		SystemLibraryProvider: m.SystemLibraryProvide,
 	}
+    do.Doer = &do
+
 	return do.Run()
 }
 
