@@ -1,15 +1,19 @@
 package main
 
 import (
-	"fmt"
 	"github.com/af-fess/go-demo-tests/core"
+	"github.com/af-fess/go-demo-tests/factories"
+
 )
 
 func main() {
+	systemLibraryProvide := factories.New()
 
-	manage := core.Manage{}
-    err := manage.Execute()
-	if err != nil {
-		fmt.Println(err)
-	}
+	params := core.NewBuildParams(
+		true,
+		"/Users/maximshoustin/AppsFlyer/projects")
+
+	manageInstance := core.NewManage()
+
+	manageInstance.Execute(systemLibraryProvide, params)
 }

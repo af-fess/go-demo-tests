@@ -1,28 +1,24 @@
 package core
 
-import "github.com/af-fess/go-demo-tests/factories"
+import (
+	"github.com/af-fess/go-demo-tests/factories"
+)
 
-type Manage struct {
-	SystemLibraryProvide *factories.SystemLibraryProvide
+type Manage struct {}
+
+func NewManage() *Manage {
+	return &Manage{}
 }
 
-func (m *Manage) GetSystemLibraryProvider() factories.SystemLibraryProvider {
-	return m.SystemLibraryProvide
-}
 
-func (m *Manage) Execute() error{
+func (m *Manage) Execute(systemLibraryProvide *factories.SystemLibraryProvide, params BuildParams) error{
 
-	m.SystemLibraryProvide = &factories.SystemLibraryProvide{}
-
-	params := BuildParams{
-		IsOptIn:       true,
-		WorkspacePath: "/Users/maximshoustin/AppsFlyer/projects",
-	}
 	do := Do{
 		Params: params,
-		SystemLibraryProvider: m.SystemLibraryProvide,
+		SystemLibraryProvider: systemLibraryProvide,
 	}
-    do.Doer = &do
+
+	do.Doer = &do
 
 	return do.Run()
 }

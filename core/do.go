@@ -9,9 +9,11 @@ import (
 	"time"
 )
 
+
 type Doer interface {
 	DoSomething() error
 }
+
 
 type Do struct {
 	Doer

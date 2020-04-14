@@ -18,6 +18,10 @@ type SystemLibraryProvider interface {
 type SystemLibraryProvide struct {
 }
 
+func New()  *SystemLibraryProvide {
+	return &SystemLibraryProvide{}
+}
+
 // mock helper for 'os'
 func (app *SystemLibraryProvide) Chdir(dir string) error {
 	return os.Chdir(dir)
